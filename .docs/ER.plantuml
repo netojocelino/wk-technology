@@ -1,0 +1,47 @@
+@startuml "Aplicação"
+
+entity "wk_store_clients" AS clients  {
+    *id : number <<generated>>
+    --
+    name  : text
+    cpf   : text
+    email : text
+
+    birth_date : date
+
+    address_cep           : text
+    address_place         : text
+    address_number        : text
+    address_neighborhood  : text
+    address_complement    : text
+    address_city          : text
+}
+
+entity "wk_store_products" AS products  {
+    *id : number <<generated>>
+    --
+    name       : text
+    unit_price : decimal
+}
+
+entity "wk_store_sale" AS sale  {
+    *id : number <<generated>>
+    --
+    created_at : date
+    competence : date
+    client_id  : number <<FK>>
+    name       : text
+    unit_price : decimal
+}
+entity "wk_store_item_sale" AS item_sale  {
+    *id : number <<generated>>
+    --
+    sale_id    : number <<FK>>
+    product_id : number <<FK>>
+}
+
+clients }o--|| sale
+sale }|--|| item_sale
+item_sale ||-- products
+
+@enduml
