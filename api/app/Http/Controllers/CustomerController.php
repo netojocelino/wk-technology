@@ -57,4 +57,16 @@ class CustomerController extends Controller
             ]);
         }
     }
+
+    public function getCustomers(Request $request)
+    {
+        try {
+            $customers = Customer::all()->toArray();
+            return response($customers, 200);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Customers cannot be retrived',
+            ], 500);
+        }
+    }
 }

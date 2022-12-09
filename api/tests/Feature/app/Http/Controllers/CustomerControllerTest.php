@@ -86,4 +86,30 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
+    public function testGetCustomersShouldReturnOnlyThreeRows ()
+    {
+        // Arrange
+        $customersSaved = Customer::factory()->count(3)->create();
+
+        // Act
+        $customers = $this->get(route('getCustomers'));
+        $content = json_decode($customers->getContent());
+
+        // Assert
+        $this->assertIsArray($content);
+        $this->assertEquals(3, count($content));
+        $this->assertArrayHasKey('id', $content[0]);
+    }
+
+    public function testGetCustomersMustReturnNoRows ()
+    {
+        // Arrange
+        // Act
+        $customers = $this->get(route('getCustomers'));
+        $content = json_decode($customers->getContent());
+
+        // Assert
+        $this->assertIsArray($content);
+        $this->assertEquals(0, count($content));
+    }
 }
