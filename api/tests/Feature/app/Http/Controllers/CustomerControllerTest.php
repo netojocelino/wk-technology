@@ -34,4 +34,30 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
+    public function testCustomerMustFailsWhenCpfhasWrongFormat ()
+    {
+        // Arrange
+        $customer = Customer::factory()->make([
+            'cpf' => 'xxx.xxx.xxx-xx'
+        ])->toArray();
+        // Act
+        $request = $this->post(route('postCustomer'), $customer);
+        // Assert
+        $request->assertStatus(422); // Unprocessable Entity
+        $this->assertDatabaseMissing('customers', $customer);
+    }
+
+    public function testCustomerMustFailsWhenCpfhasWrongSize ()
+    {
+        // Arrange
+        $customer = Customer::factory()->make([
+            'cpf' => '014421010 08'
+        ])->toArray();
+        // Act
+        $request = $this->post(route('postCustomer'), $customer);
+        // Assert
+        $request->assertStatus(422); // Unprocessable Entity
+        $this->assertDatabaseMissing('customers', $customer);
+    }
+
 }

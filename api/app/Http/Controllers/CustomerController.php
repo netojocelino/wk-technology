@@ -13,7 +13,24 @@ class CustomerController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string',
-                'cpf' => 'required|string',
+                'cpf' => [
+                    'required',
+                    'string',
+                    function ($attribute, $value, $fails) {
+                        $hasRightSize = \strlen($value) === \strlen('xxxxxxxxxxx');
+                        $hasRightSize |= \strlen($value) === \strlen('xxx.xxx.xxx-xx');
+
+                        if (!$hasRightSize) {
+                            $fails('The '.$attribute.' is invalid, with size invalid.');
+                        }
+
+                        $matchFormat = \preg_match('/[0-9]{3}.?[0-9]{3}.?[0-9]{3}-?[0-9]{2}/', $value);
+
+                        if (!$matchFormat) {
+                            $fails('The '.$attribute.' is invalid format.');
+                        }
+                    }
+                ],
                 'email' => 'required|string',
                 'birth_date' => 'required|date_format:Y-m-d',
                 'address_cep' => 'required|string',
