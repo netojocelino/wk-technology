@@ -93,7 +93,7 @@ class CustomerControllerTest extends TestCase
 
         // Act
         $customers = $this->get(route('getCustomers'));
-        $content = json_decode($customers->getContent());
+        $content = json_decode($customers->getContent(), true);
 
         // Assert
         $this->assertIsArray($content);
@@ -106,7 +106,7 @@ class CustomerControllerTest extends TestCase
         // Arrange
         // Act
         $customers = $this->get(route('getCustomers'));
-        $content = json_decode($customers->getContent());
+        $content = json_decode($customers->getContent(), true);
 
         // Assert
         $this->assertIsArray($content);
