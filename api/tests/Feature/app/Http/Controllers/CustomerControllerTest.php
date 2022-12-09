@@ -21,4 +21,17 @@ class CustomerControllerTest extends TestCase
         $request->assertStatus(201); // Created
         $this->assertDatabaseHas('customers', $customer);
     }
+
+    public function testCustomerMustFailsWhenHasntName ()
+    {
+        // Arrange
+        $customer = Customer::factory()->make()->toArray();
+        unset($customer['name']);
+        // Act
+        $request = $this->post(route('postCustomer'), $customer);
+        // Assert
+        $request->assertStatus(422); // Unprocessable Entity
+        $this->assertDatabaseMissing('customers', $customer);
+    }
+
 }

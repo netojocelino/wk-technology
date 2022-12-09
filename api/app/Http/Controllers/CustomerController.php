@@ -4,12 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CustomerController extends Controller
 {
     public function postCustomer(Request $request)
     {
         try {
+            $request->validate([
+                'name' => 'required|string',
+                'cpf' => 'required|string',
+                'email' => 'required|string',
+                'birth_date' => 'required|date_format:Y-m-d',
+                'address_cep' => 'required|string',
+                'address_place' => 'required|string',
+                'address_number' => 'required|string',
+                'address_neighborhood' => 'required|string',
+                'address_complement' => 'required|string',
+                'address_city' => 'required|string',
+            ]);
+
             $data = $request->only([
                 'name',
                 'cpf',
@@ -25,9 +39,17 @@ class CustomerController extends Controller
 
             $customer = new Customer($data);
             $customer->save();
+
             return response($data, 201);
+
+        } catch (ValidationException $exception) {
+            return response([
+                'message' => $exception->getMessage(),
+            ], 422);
         } catch (\Exception $exception) {
-            var_dump($exception->getMessage());
+            return response([
+                'message' => $exception->getMessage(),
+            ]);
         }
     }
 }
