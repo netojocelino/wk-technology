@@ -11,7 +11,7 @@ class CustomerControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testCustomerShouldBeCreatedWhenHasAllData ()
+    public function testPostCustomerShouldBeCreatedWhenHasAllData ()
     {
         // Arrange
         $customer = Customer::factory()->make()->toArray();
@@ -22,7 +22,7 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseHas('customers', $customer);
     }
 
-    public function testCustomerMustFailsWhenHasntName ()
+    public function testPostCustomerMustFailsWhenHasntName ()
     {
         // Arrange
         $customer = Customer::factory()->make()->toArray();
@@ -34,7 +34,7 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
-    public function testCustomerMustFailsWhenCpfhasWrongFormat ()
+    public function testPostCustomerMustFailsWhenCpfhasWrongFormat ()
     {
         // Arrange
         $customer = Customer::factory()->make([
@@ -47,7 +47,7 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
-    public function testCustomerMustFailsWhenCpfHasWrongSize ()
+    public function testPostCustomerMustFailsWhenCpfHasWrongSize ()
     {
         // Arrange
         $customer = Customer::factory()->make([
@@ -60,7 +60,7 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
-    public function testCustomerMustFailsWhenOnlyNumbersCpfIsInvalid ()
+    public function testPostCustomerMustFailsWhenOnlyNumbersCpfIsInvalid ()
     {
         // Arrange
         $customer = Customer::factory()->make([
@@ -73,7 +73,7 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseMissing('customers', $customer);
     }
 
-    public function testCustomerMustFailsWhenWithSymbolsCpfIsInvalid ()
+    public function testPostCustomerMustFailsWhenWithSymbolsCpfIsInvalid ()
     {
         // Arrange
         $customer = Customer::factory()->make([
