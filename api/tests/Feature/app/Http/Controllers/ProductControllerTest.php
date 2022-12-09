@@ -21,4 +21,28 @@ class ProductControllerTest extends TestCase
         $this->assertDatabaseHas('products', $productArray);
     }
 
+    public function testPostProductMustFailWhenHasNoName ()
+    {
+        // Arrange
+        $productArray = [
+            'unit_price' => 420.00,
+        ];
+        // Act
+        $request = $this->post(route('postProduct'), $productArray);
+        // Assert
+        $request->assertStatus(422);
+    }
+
+    public function testPostProductMustFailWhenHasNoUnitPrice ()
+    {
+        // Arrange
+        $productArray = [
+            'name' => 'Some Fantastic Product',
+        ];
+        // Act
+        $request = $this->post(route('postProduct'), $productArray);
+        // Assert
+        $request->assertStatus(422);
+    }
+
 }
