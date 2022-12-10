@@ -112,4 +112,45 @@ class CustomerControllerTest extends TestCase
         $this->assertIsArray($content);
         $this->assertEquals(0, count($content));
     }
+
+    public function testGetCustomerByValidIdMustReturnOneRow ()
+    {
+        // Arrange
+        $customer = Customer::factory()->create()->toArray();
+        $id = $customer['id'];
+        // Act
+        $response = $this->get(route('getCustomer', [ 'id' => $id ]));
+
+        $content = json_decode($response->getContent(), true);
+
+        // Assert
+        $response->assertStatus(200);
+        $this->assertIsArray($content);
+        $this->assertEquals($customer['name'], $content['name']);
+        $this->assertEquals($customer['cpf'], $content['cpf']);
+        $this->assertEquals($customer['email'], $content['email']);
+        $this->assertEquals($customer['birth_date'], $content['birth_date']);
+        $this->assertEquals($customer['address_cep'], $content['address_cep']);
+        $this->assertEquals($customer['address_place'], $content['address_place']);
+        $this->assertEquals($customer['address_number'], $content['address_number']);
+        $this->assertEquals($customer['address_neighborhood'], $content['address_neighborhood']);
+        $this->assertEquals($customer['address_complement'], $content['address_complement']);
+        $this->assertEquals($customer['address_city'], $content['address_city']);
+    }
+
+    public function testGetCustomerByInvalidIdMustReturnEmpty ()
+    {
+        // Arrange
+        $id = 'not-exists-99999999999999';
+        // Act
+        $response = $this->get(route('getCustomer', [ 'id' => $id ]));
+
+        $content = json_decode($response->getContent(), true);
+
+        // Assert
+        $response->assertStatus(404);
+        $this->assertIsArray($content);
+        $this->assertEquals($content['message'], 'Product cannot exists.');
+    }
+
 }

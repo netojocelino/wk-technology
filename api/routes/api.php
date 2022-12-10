@@ -28,6 +28,12 @@ Route::get('/customers', [
     'getCustomers',
 ])->name('getCustomers');
 
+Route::get('/customer/{id}', [
+    Controllers\CustomerController::class,
+    'getCustomer',
+])->name('getCustomer');
+
+
 Route::post('/product', [
     Controllers\ProductController::class,
     'postProduct',

@@ -69,4 +69,17 @@ class CustomerController extends Controller
             ], 500);
         }
     }
+
+    public function getCustomer(Request $request, string $id)
+    {
+        try {
+            $customer = Customer::findOrFail($id);
+            return response($customer, 200);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Customer cannot be retrived',
+            ], 500);
+        }
+    }
+
 }
