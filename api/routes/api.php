@@ -32,3 +32,8 @@ Route::post('/product', [
     Controllers\ProductController::class,
     'postProduct',
 ])->name('postProduct');
+
+Route::get('/products', [
+    Controllers\ProductController::class,
+    'getProducts',
+])->name('getProducts');

@@ -45,4 +45,32 @@ class ProductControllerTest extends TestCase
         $request->assertStatus(422);
     }
 
+    public function testGetProductsShouldReturnOnlyThreeRows ()
+    {
+        // Arrange
+        Product::factory()->count(3)->create();
+
+        // Act
+        $products = $this->get(route('getProducts'));
+
+        $content = json_decode($products->getContent(), true);
+
+        // Assert
+        $this->assertIsArray($content);
+        $this->assertEquals(3, count($content));
+        $this->assertArrayHasKey('id', $content[0]);
+    }
+
+    public function testGetProductsMustReturnNoRows ()
+    {
+        // Arrange
+        // Act
+        $products = $this->get(route('getProducts'));
+        $content = json_decode($products->getContent(), true);
+
+        // Assert
+        $this->assertIsArray($content);
+        $this->assertEquals(0, count($content));
+    }
+
 }

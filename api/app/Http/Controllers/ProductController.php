@@ -34,4 +34,18 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
+    public function getProducts (Request $request)
+    {
+        try {
+            $products = Product::all()->toArray();
+
+            return response($products, 200);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Products cannot be retrived',
+            ], 500);
+        }
+    }
+
 }
