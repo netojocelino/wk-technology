@@ -73,4 +73,37 @@ class ProductControllerTest extends TestCase
         $this->assertEquals(0, count($content));
     }
 
+    public function testGetProductByValidIdMustReturnOneRow ()
+    {
+        // Arrange
+        $product = Product::factory()->create()->toArray();
+        $id = $product['id'];
+        // Act
+        $response = $this->get(route('getProduct', [ 'id' => $id ]));
+
+        $content = json_decode($response->getContent(), true);
+
+        // Assert
+        $response->assertStatus(200);
+        $this->assertIsArray($content);
+        $this->assertEquals($product['id'], $content['id']);
+        $this->assertEquals($product['name'], $content['name']);
+        $this->assertEquals($product['unit_price'], $content['unit_price']);
+    }
+
+    public function testGetProductByInvalidIdMustReturnEmpty ()
+    {
+        // Arrange
+        $id = 'not-exists-99999999999999';
+        // Act
+        $response = $this->get(route('getProduct', [ 'id' => $id ]));
+
+        $content = json_decode($response->getContent(), true);
+
+        // Assert
+        $response->assertStatus(404);
+        $this->assertIsArray($content);
+        $this->assertEquals($content['message'], 'Product cannot exists.');
+    }
+
 }

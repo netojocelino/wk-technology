@@ -48,4 +48,17 @@ class ProductController extends Controller
         }
     }
 
+    public function getProduct (Request $request, string $id)
+    {
+        try {
+            $product = Product::findOrFail($id);
+
+            return response($product, 200);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Product cannot exists.',
+            ], 404);
+        }
+    }
+
 }
