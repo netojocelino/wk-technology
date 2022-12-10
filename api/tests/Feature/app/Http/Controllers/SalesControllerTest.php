@@ -25,4 +25,35 @@ class SalesOrderControllerTest extends TestCase
         $this->assertDatabaseHas('customers', [ 'id' => $content->customer_id ]);
     }
 
+    public function testPostSalesOrderMustFailsWhenHasntCustomer ()
+    {
+        $saleOrderArray = [
+            'sale_date' => '2022-12-12',
+        ];
+
+        $request = $this->post(route('postSalesOrder'), $saleOrderArray);
+
+        // Assert
+        $request->assertStatus(422);
+        $request->assertJsonFragment([ 'message' => 'The customer id field is required.' ]);
+
+        $this->assertDatabaseMissing('sales_orders', $saleOrderArray);
+    }
+
+    public function testPostSalesOrderMustFailsWhenCustomerDoesNotExists ()
+    {
+        $saleOrderArray = [
+            'sale_date' => '2022-12-12',
+            'customer_id' => '99997541',
+        ];
+
+        $request = $this->post(route('postSalesOrder'), $saleOrderArray);
+
+        // Assert
+        $request->assertStatus(422);
+        $request->assertJsonFragment([ 'message' => 'The selected customer id is invalid.' ]);
+
+        $this->assertDatabaseMissing('sales_orders', $saleOrderArray);
+    }
+
 }
