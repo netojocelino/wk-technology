@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Rules;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -75,11 +76,16 @@ class CustomerController extends Controller
         try {
             $customer = Customer::findOrFail($id);
             return response($customer, 200);
+        } catch (ModelNotFoundException $exception) {
+            return response([
+                'message' => 'Product cannot exists.',
+            ], 404);
         } catch (\Exception $exception) {
             return response([
                 'message' => 'Customer cannot be retrived',
             ], 500);
         }
+
     }
 
 }
