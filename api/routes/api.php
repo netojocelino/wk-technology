@@ -38,7 +38,7 @@ Route::get('/products', [
     'getProducts',
 ])->name('getProducts');
 
-Route::get('/products/{id}', [
+Route::get('/product/{id}', [
     Controllers\ProductController::class,
     'getProduct',
 ])->name('getProduct');
