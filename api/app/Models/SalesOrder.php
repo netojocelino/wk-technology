@@ -15,7 +15,7 @@ class SalesOrder extends Model
     ];
 
     protected $casts = [
-        'sale_date',
+        'sale_date' => 'datetime:Y-m-d',
     ];
 
 }
