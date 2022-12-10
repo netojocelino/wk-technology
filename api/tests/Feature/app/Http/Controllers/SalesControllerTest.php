@@ -127,4 +127,35 @@ class SalesOrderControllerTest extends TestCase
         ]);
     }
 
+    public function testGetSaleShouldReturnWhenExists ()
+    {
+        $customer = Model\Customer::factory()->create();
+        $salesOrder = Model\SalesOrder::factory([
+            'customer_id' => $customer->id,
+        ])->create();
+        Model\SaleItem::factory([ 'sale_id' => $salesOrder->id, ])
+            ->create();
+
+
+        $date = $salesOrder->sale_date->format('Y-m-d');
+
+        $request = $this->get(route('getSalesOrder', [ 'id' => $salesOrder->id] ));
+
+        $request->assertStatus(200);
+        $request->assertJsonFragment([
+            'customer_id' => $customer->id,
+            'id' => $salesOrder->id,
+            'sale_date' => $date,
+        ]);
+    }
+
+    public function testGetSaleShouldFailsWhenNotExists ()
+    {
+        $idToFind = '1234597501';
+        $request = $this->get(route('getSalesOrder', [ 'id' => $idToFind] ));
+
+        $request->assertStatus(404);
+        $this->assertDatabaseMissing('sales_orders', [ 'id' => $idToFind ]);
+    }
+
 }

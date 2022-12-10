@@ -53,3 +53,8 @@ Route::post('/order/sale', [
     Controllers\SalesOrderController::class,
     'postSalesOrder',
 ])->name('postSalesOrder');
+
+Route::get('/order/sale/{id}', [
+    Controllers\SalesOrderController::class,
+    'getSalesOrder',
+])->name('getSalesOrder');

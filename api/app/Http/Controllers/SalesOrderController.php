@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SaleItem;
 use App\Models\SalesOrder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -57,6 +58,28 @@ class SalesOrderController extends Controller
         } catch (\Exception $exception) {
             return response([
                 'message' => $exception->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getSalesOrder (Request $request, string $id)
+    {
+        try {
+            $model = SalesOrder::findOrFail($id);
+            $sale = $model->toArray();
+
+            $sale['total'] = $model->TotalPrice;
+
+            return response($sale, 200);
+
+        } catch (ModelNotFoundException $exception) {
+            return response([
+                'message' => 'Product cannot exists.',
+            ], 404);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Sale Order cannot be retrived',
+                'error' => $exception->getMessage(),
             ], 500);
         }
     }
