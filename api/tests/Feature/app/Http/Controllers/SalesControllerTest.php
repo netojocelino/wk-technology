@@ -14,9 +14,11 @@ class SalesOrderControllerTest extends TestCase
     {
         // Arrange
         $saleOrderArray = Model\SalesOrder::factory()->make()->toArray();
+
         // Act
         $request = $this->post(route('postSalesOrder'), $saleOrderArray);
         $content = json_decode($request->getContent());
+
         // Assert
         $request->assertStatus(201);
         $request->assertJsonFragment([ 'id' => $content->id ]);
@@ -54,6 +56,40 @@ class SalesOrderControllerTest extends TestCase
         $request->assertJsonFragment([ 'message' => 'The selected customer id is invalid.' ]);
 
         $this->assertDatabaseMissing('sales_orders', $saleOrderArray);
+    }
+
+    public function testPostSalesShouldBeCreatedSuccessfullyWithOneItem ()
+    {
+        // Arrange
+        $customer = Model\Customer::factory()->create();
+        $product = Model\Product::factory()->create();
+
+        $saleOrderArray = Model\SalesOrder::factory([
+            'customer_id' => $customer->id,
+        ])->make()->toArray();
+
+        $saleItems = Model\SaleItem::factory([
+            'sale_id' => null,
+            'product_id' => $product->id,
+        ])->make()->toArray();
+        unset($saleItems['sale_id']);
+
+        $saleOrderArray['items'] = [$saleItems];
+
+        // Act
+        $request = $this->post(route('postSalesOrder'), $saleOrderArray);
+        $content = json_decode($request->getContent());
+        unset($saleOrderArray['items']);
+
+        // Assert
+        $request->assertStatus(201);
+        $request->assertJsonFragment([ 'id' => $content->id, 'customer_id' => $customer->id ]);
+
+        $this->assertDatabaseHas('sales_orders', $saleOrderArray);
+        $this->assertDatabaseHas('sale_items', [
+            'product_id' => $saleItems['product_id'],
+            'unit_price' => $saleItems['unit_price'],
+        ]);
     }
 
 }
