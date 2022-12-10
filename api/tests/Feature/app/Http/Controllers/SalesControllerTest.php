@@ -92,4 +92,39 @@ class SalesOrderControllerTest extends TestCase
         ]);
     }
 
+    public function testPostSalesMustFailWhenProductNotExists ()
+    {
+        // Arrange
+        $customer = Model\Customer::factory()->create();
+        $saleOrderArray = Model\SalesOrder::factory([
+            'customer_id' => $customer->id,
+        ])->make()->toArray();
+
+        $saleItem = [
+            'product_id' => '213456',
+            'unit_price' => '12315.92'
+        ];
+
+        $saleOrderArray['items'] = [$saleItem];
+
+        $expected = [
+            'message' => 'The selected items.0.product_id is invalid.',
+        ];
+
+        // Act
+        $request = $this->post(route('postSalesOrder'), $saleOrderArray);
+
+        unset($saleOrderArray['items']);
+
+        // Assert
+        $request->assertStatus(422);
+        $request->assertContent(json_encode($expected));
+
+        $this->assertDatabaseMissing('sales_orders', $saleOrderArray);
+        $this->assertDatabaseMissing('sale_items', [
+            'product_id' => $saleItem['product_id'],
+            'unit_price' => $saleItem['unit_price'],
+        ]);
+    }
+
 }
