@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 type CustomerType = {
     id: String
@@ -26,7 +26,7 @@ type FormInput = 'sale_date' | 'customer_id' | 'products' | 'product_id';
   styleUrls: ['./add-sale.component.css']
 })
 
-export class AddSaleComponent {
+export class AddSaleComponent implements OnInit {
     title = "Adicionar Venda"
 
     formRecords: Record<FormInput, any> = {
@@ -34,25 +34,43 @@ export class AddSaleComponent {
         customer_id: null,
         products: [
             { id: '1', name: '1st Product', unit_price: 124.12, qtd: 0 },
-            { id: '2', name: '2nd Product', unit_price: 24.22, qtd: 0 },
-            { id: '3', name: 'Third Product', unit_price: 14.55, qtd: 0 },
-            { id: '4', name: '4th Product', unit_price: 40.27, qtd: 0 },
-            { id: '5', name: '5th Product', unit_price: 400.96, qtd: 0 },
         ] as ProductType[],
         product_id: null,
     }
 
     // id, name
-    customers: CustomerType[] = [
-        { id: '1', name: 'First Customer' },
-        { id: '2', name: 'Second Customer' },
-        { id: '3', name: 'Third Customer' },
-        { id: '4', name: '4th Customer' },
-        { id: '5', name: '5th Customer' },
-    ]
+    customers: CustomerType[] = []
+
     products_id: number[] = []
 
     constructor(private http: HttpClient) {}
+
+    ngOnInit(): void {
+        this.http.get('http://localhost:8082/api/customers')
+            .subscribe((customers: any) => {
+                this.customers = customers as CustomerType[];
+            }, (error) => {
+                console.error(error)
+                alert('Ocorreu um erro ao consultar clientes')
+            })
+
+
+        this.http.get('http://localhost:8082/api/products')
+            .subscribe((products: any) => {
+                const productCasted = products.map((product: any) => {
+                    return {
+                        id: product.id,
+                        name: product.name,
+                        unit_price: product.unit_price,
+                        qtd: 0,
+                    } as ProductType
+                })
+                this.formRecords.products = productCasted;
+            }, (error) => {
+                console.error(error)
+                alert('Ocorreu um erro ao consultar clientes')
+            })
+    }
 
     getCustomerById(customer_id: string) {
         if (customer_id === undefined) return;
@@ -170,7 +188,6 @@ export class AddSaleComponent {
         }
 
         this.postSale(data)
-        console.log(data)
     }
 
 }
