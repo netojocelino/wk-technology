@@ -11,7 +11,7 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'add-customer', component: AddCustomersComponent },
     { path: 'add-product', component: AddProductComponent },
-    { path: 'show-customers', component: ShowCustomersComponent },
+    { path: 'customers', component: ShowCustomersComponent },
     { path: 'products', component: ShowProductsComponent },
 
 ];
