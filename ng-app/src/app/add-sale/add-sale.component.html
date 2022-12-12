@@ -1,0 +1,74 @@
+<div class="content">
+    <h2>{{ title }}</h2>
+    <form (ngSubmit)="save()">
+        <label for="customer_id">
+            Nome do Cliente
+            <select
+                #customer_id
+                name="customer_id"
+                (change)="update(customer_id)"
+            >
+                <option value="">Selecione uma opção</option>
+                <option
+                    *ngFor="let customer of customers"
+                    [value]="customer.id"
+                >{{ customer.name }}</option>
+            </select>
+        </label>
+        <label for="product_id">
+            Produto
+            <select
+                #product_id
+                name="product_id"
+                (change)="update(product_id)"
+            >
+                <option value="">Selecione uma opção</option>
+                <option
+                    *ngFor="let product of formRecords.products"
+                    [value]="product.id"
+                >{{ product.name }}</option>
+            </select>
+            <button type="button" (click)="addProductToChart()" class="add-item">+</button>
+        </label>
+    </form>
+
+    <h3>Lista de pedidos de {{ getCustomerById(formRecords.customer_id) }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Produto</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let item of getSelectedProducts(); index as i">
+                <td>{{ item.name }}</td>
+                <td>R$ {{ item.unit_price }}</td>
+                <td>
+                    <button (click)="subQtd(i)" type="button">-</button>
+                    <input
+                        class="input-number"
+                        type="number"
+                        [(ngModel)]="item.qtd"
+                    >
+                    <button (click)="addQtd(i)" type="button">+</button>
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th scope="row">Total</th>
+                <th colspan="2"> R$ {{ getTotal() }}</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="nav">
+        <button type="button" class="button" (click)="save()">
+            Salvar
+        </button>
+    </div>
+</div>
