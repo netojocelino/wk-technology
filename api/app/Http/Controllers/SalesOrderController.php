@@ -87,7 +87,11 @@ class SalesOrderController extends Controller
     public function getSalesOrders (Request $request)
     {
         try {
-            $orders = SalesOrder::all();
+            $orders = SalesOrder::with([
+                'customer:id,name',
+                'items:id,sale_id,product_id,total_price,total_items',
+                'items.product:id,name,unit_price',
+            ])->get();
             $responseArray = $orders->toArray();
 
             foreach($orders as $index => $order) {

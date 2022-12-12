@@ -18,4 +18,12 @@ class SalesOrder extends Model
         'sale_date' => 'datetime:Y-m-d',
     ];
 
+    public function customer () {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+    }
+
+    public function items () {
+        return $this->hasMany(SaleItem::class, 'sale_id', 'id');
+    }
+
 }
