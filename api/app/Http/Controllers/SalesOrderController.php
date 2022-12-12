@@ -95,7 +95,7 @@ class SalesOrderController extends Controller
             $responseArray = $orders->toArray();
 
             foreach($orders as $index => $order) {
-                $responseArray[$index]['total_price'] = SaleItem::where('sale_id', $order->id)->sum('total_price');
+                $responseArray[$index]['total_price'] = $order->items()->sum('total_price');
             }
 
             return response($responseArray, 200);
