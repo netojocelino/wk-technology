@@ -35,6 +35,21 @@ p {
   background-color: #1976d2;
   color: white;
   font-weight: 600;
+  padding-right: 1rem;
+}
+
+.toolbar a {
+    color: white;
+    padding: 0 .8rem;
+
+}
+
+.toolbar a:hover,
+.toolbar a:active,
+.toolbar a:focus
+ {
+    text-decoration: underline;
+    text-decoration-color: gainsboro;
 }
 
 .toolbar img {
@@ -100,7 +115,9 @@ svg.material-icons:not(:last-child) {
   cursor: pointer;
 }
 
-.card-container .card:not(.highlight-card):hover {
+.card-container .card:not(.highlight-card):hover,
+.card-container .card:not(.highlight-card):focus
+{
   transform: translateY(-3px);
   box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
