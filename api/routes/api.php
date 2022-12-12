@@ -58,3 +58,8 @@ Route::get('/order/sale/{id}', [
     Controllers\SalesOrderController::class,
     'getSalesOrder',
 ])->name('getSalesOrder');
+
+Route::get('/order/sale', [
+    Controllers\SalesOrderController::class,
+    'getSalesOrders',
+])->name('getSalesOrders');

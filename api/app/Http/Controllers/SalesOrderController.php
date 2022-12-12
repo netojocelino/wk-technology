@@ -83,4 +83,23 @@ class SalesOrderController extends Controller
             ], 500);
         }
     }
+
+    public function getSalesOrders (Request $request)
+    {
+        try {
+            $orders = SalesOrder::all();
+            $responseArray = $orders->toArray();
+
+            foreach($orders as $index => $order) {
+                $responseArray[$index]['total_price'] = SaleItem::where('sale_id', $order->id)->sum('total_price');
+            }
+
+            return response($responseArray, 200);
+        } catch (\Exception $exception) {
+            return response([
+                'message' => 'Sale Order cannot be retrived',
+                'error' => $exception->getMessage(),
+            ], 500);
+        }
+    }
 }

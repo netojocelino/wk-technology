@@ -158,4 +158,32 @@ class SalesOrderControllerTest extends TestCase
         $this->assertDatabaseMissing('sales_orders', [ 'id' => $idToFind ]);
     }
 
+    public function testGetAllSalesOrdersWithItems ()
+    {
+        $sales = Model\SalesOrder::factory()->count(12)->create();
+        $expectedStructure = array_keys($sales->first()->toArray());
+        $expectedTotal = [];
+
+        foreach($sales->pluck('id') as $id) {
+            $items = Model\SaleItem::factory()->count(3)->create([
+                'sale_id' => $id,
+            ]);
+            $expectedTotal[$id] = $items->sum('total_price');
+        }
+
+        $request = $this->get(route('getSalesOrders'));
+        $sales_received = json_decode($request->getContent(), true);
+
+        $request->assertStatus(200);
+        $request->assertJsonStructure([
+            $expectedStructure,
+        ]);
+        $request->assertJsonCount(12);
+
+        foreach ($sales_received as $sale) {
+            $id = $sale['id'];
+            $this->assertEquals($expectedTotal[$id], $sale['total_price']);
+        }
+    }
+
 }
