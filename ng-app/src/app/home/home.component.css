@@ -35,6 +35,17 @@ svg.material-icons:not(:last-child) {
   line-height: 24px;
 }
 
+a.card span,
+a.card:visited span {
+    color: #1976d2;
+}
+
+a.card:hover span,
+a.card:active span,
+a.card:focus span {
+  color: #125699;
+}
+
 .card-container .card:not(:last-child) {
   margin-right: 0;
 }
