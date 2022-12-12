@@ -10,6 +10,7 @@ import { AppHeaderComponent } from './app-header/app-header.component';
 import { ShowCustomersComponent } from './show-customers/show-customers.component';
 import { ShowProductsComponent } from './show-products/show-products.component';
 import { AddSaleComponent } from './add-sale/add-sale.component';
+import { ShowSalesComponent } from './show-sales/show-sales.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AddSaleComponent } from './add-sale/add-sale.component';
     ShowCustomersComponent,
     ShowProductsComponent,
     AddSaleComponent,
+    ShowSalesComponent,
   ],
   imports: [
     BrowserModule,

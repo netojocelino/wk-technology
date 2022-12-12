@@ -1,0 +1,8 @@
+table {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+table tbody tr:nth-child(2n + 1) {
+    background-color: rgb(183, 183, 245);
+}

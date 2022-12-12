@@ -7,6 +7,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ShowCustomersComponent } from './show-customers/show-customers.component';
 import { ShowProductsComponent } from './show-products/show-products.component';
 import { AddSaleComponent } from './add-sale/add-sale.component';
+import { ShowSalesComponent } from './show-sales/show-sales.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'add-sale', component: AddSaleComponent },
     { path: 'customers', component: ShowCustomersComponent },
     { path: 'products', component: ShowProductsComponent },
+    { path: 'sales', component: ShowSalesComponent },
 
 ];
 
