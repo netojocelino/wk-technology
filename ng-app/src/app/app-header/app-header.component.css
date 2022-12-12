@@ -1,0 +1,52 @@
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    padding-right: 1rem;
+}
+
+.toolbar a {
+    color: white;
+    padding: 0 .8rem;
+    cursor: pointer;
+}
+
+.toolbar a.button {
+    background-color: white;
+    color: #1976d2;
+    display: inline-block;
+    padding: .8rem 2.5rem;
+}
+
+.toolbar a.button:hover,
+.toolbar a.button:active,
+.toolbar a.button:focus,
+.toolbar a.button:focus-visible {
+    color: #000;
+    background-color: rgb(177, 174, 174);
+}
+
+.toolbar a.button img.icon,
+.toolbar a.button span.legend {
+    max-width: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.toolbar a:not(.button):hover,
+.toolbar a:not(.button):active,
+.toolbar a:not(.button):focus
+{
+    text-decoration: underline;
+    text-decoration-color: gainsboro;
+}
+
+.toolbar img {
+    margin: 0 16px;
+}
