@@ -25,4 +25,8 @@ class Customer extends Model
     protected $casts = [
         'birth_date' => 'datetime:Y-m-d',
     ];
+
+    public function sales () {
+        return $this->hasMany(SalesOrder::class, 'customer_id', 'id');
+    }
 }

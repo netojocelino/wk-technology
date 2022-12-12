@@ -1,0 +1,25 @@
+<div class="content">
+    <table>
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome do Cliente</th>
+              <th>CPF</th>
+              <th>Email</th>
+              <th>Data de Nascimento</th>
+              <th>Endereço - Nro</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let customer of customers">
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.cpf }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.birth_date }}</td>
+                <td>{{ customer.address_place }} - {{ customer.address_number }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

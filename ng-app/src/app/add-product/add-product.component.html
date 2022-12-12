@@ -1,0 +1,39 @@
+<div class="content">
+    <h2>{{ title }}</h2>
+
+    <form (ngSubmit)="save()">
+      <label for="name">
+          Nome do Produto
+          <input
+              #name
+              (input)="update(name, name.value)"
+              required
+              type="text"
+              name="name"
+              placeholder="Adicione nome do produto"
+          >
+      </label>
+
+      <label for="unit_price">
+          Preço Unitário
+          <input
+              #unit_price
+              (input)="update(unit_price, unit_price.value)"
+              required
+              type="text"
+              name="unit_price"
+              placeholder="Adicione Preço Unitário do produto"
+          >
+      </label>
+
+      <div class="nav">
+          <button type="button" class="button" (click)="save()">
+              Salvar
+          </button>
+
+          <button type="reset" class="button">
+              Limpar
+          </button>
+      </div>
+    </form>
+  </div>

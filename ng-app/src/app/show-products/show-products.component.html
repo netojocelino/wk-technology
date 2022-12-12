@@ -1,0 +1,19 @@
+<div class="content">
+    <table>
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome do Produto</th>
+              <th>Preço Unitário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>R$ {{ product.unit_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

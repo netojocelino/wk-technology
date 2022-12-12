@@ -19,4 +19,12 @@ class SaleItem extends Model
         'unit_price' => 'decimal:2',
     ];
 
+    public function sale () {
+        return $this->belongsTo(SalesOrder::class, 'sale_id', 'id');
+    }
+
+    public function product () {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
 }
