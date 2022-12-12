@@ -1,0 +1,136 @@
+<div class="content">
+  <h2>{{ title }}</h2>
+
+  <form (ngSubmit)="save()">
+    <label for="name">
+        Name
+        <input
+            #name
+            (input)="update(name, name.value)"
+            required
+            type="text"
+            name="name"
+            placeholder="Adicione seu nome"
+        >
+    </label>
+
+    <label for="cpf">
+        CPF
+        <input
+            #cpf
+            (input)="update(cpf, cpf.value)"
+            required
+            type="text"
+            name="cpf"
+            placeholder="Adicione seu CPF"
+        >
+    </label>
+
+    <label for="email">
+        Email
+        <input
+            #email
+            (input)="update(email, email.value)"
+            required
+            type="text"
+            name="email"
+            placeholder="Adicione seu Email"
+        >
+    </label>
+
+    <label for="birth_date">
+        Data de Nascimento
+        <input
+            #birth_date
+            (input)="update(birth_date, birth_date.value)"
+            required
+            type="text"
+            name="birth_date"
+            placeholder="Adicione sua Data de Nascimento"
+        >
+    </label>
+
+    <label for="address_cep">
+        CEP
+        <input
+            #address_cep
+            (input)="update(address_cep, address_cep.value)"
+            required
+            type="text"
+            name="address_cep"
+            placeholder="Adicione seu CEP"
+        >
+    </label>
+
+    <label for="address_place">
+        Logradouro
+        <input
+            #address_place
+            (input)="update(address_place, address_place.value)"
+            required
+            type="text"
+            name="address_place"
+            placeholder="Adicione seu Logradouro"
+        >
+    </label>
+
+    <label for="address_number">
+        Número
+        <input
+            #address_number
+            (input)="update(address_number, address_number.value)"
+            required
+            type="text"
+            name="address_number"
+            placeholder="Adicione seu Número"
+        >
+    </label>
+
+    <label for="address_neighborhood">
+        Bairro
+        <input
+            #address_neighborhood
+            (input)="update(address_neighborhood, address_neighborhood.value)"
+            required
+            type="text"
+            name="address_neighborhood"
+            placeholder="Adicione seu Bairro"
+        >
+    </label>
+
+    <label for="address_complement">
+        Complemento
+        <input
+            #address_complement
+            (input)="update(address_complement, address_complement.value)"
+            required
+            type="text"
+            name="address_complement"
+            placeholder="Adicione seu Complemento"
+        >
+    </label>
+
+    <label for="address_city">
+        Cidade
+        <input
+            #address_city
+            (input)="update(address_city, address_city.value)"
+            required
+            type="text"
+            name="address_city"
+            placeholder="Adicione sua Cidade"
+        >
+    </label>
+
+
+    <div class="nav">
+        <button type="button" class="button" (click)="save()">
+            Salvar
+        </button>
+
+        <button type="reset" class="button">
+            Limpar
+        </button>
+    </div>
+  </form>
+</div>
