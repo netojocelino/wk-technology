@@ -22,6 +22,20 @@ class CustomerControllerTest extends TestCase
         $this->assertDatabaseHas('customers', $customer);
     }
 
+    public function testPostCustomerMustFailsWhenDataDuplicate ()
+    {
+        // Arrange
+        $customer = Customer::factory()->create();
+        $customerArray = Customer::factory([
+            'cpf' => $customer->cpf,
+        ])->make()->toArray();
+
+        // Act
+        $request = $this->post(route('postCustomer'), $customerArray);
+        // Assert
+        $request->assertStatus(500); // Created
+    }
+
     public function testPostCustomerMustFailsWhenHasntName ()
     {
         // Arrange
