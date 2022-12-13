@@ -7,8 +7,12 @@ type CustomerType = {
     'cpf': string,
     'email': string,
     'birth_date': string,
+    'address_cep': string,
     'address_place': string,
     'address_number': string,
+    'address_neighborhood': string,
+    'address_complement': string,
+    'address_city': string,
 }
 
 @Component({

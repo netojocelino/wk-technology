@@ -7,7 +7,7 @@
               <th>CPF</th>
               <th>Email</th>
               <th>Data de Nascimento</th>
-              <th>Endereço - Nro</th>
+              <th>Endereço</th>
             </tr>
         </thead>
 
@@ -18,7 +18,11 @@
                 <td>{{ customer.cpf }}</td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.birth_date }}</td>
-                <td>{{ customer.address_place }} - {{ customer.address_number }}</td>
+                <td>
+                     <strong>Logradouro:</strong> {{ customer.address_place }} - {{ customer.address_number }} <br />
+                     <strong>Bairro:</strong> {{ customer.address_neighborhood }} <strong>Complemento:</strong> {{ customer.address_complement }} <br />
+                     <strong>CEP:</strong> {{ customer.address_cep }} - <strong>Cidade:</strong> {{ customer.address_city }}
+                </td>
             </tr>
         </tbody>
     </table>
