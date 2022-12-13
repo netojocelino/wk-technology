@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 
 type FormInput = 'name' | 'cpf' | 'email' | 'birth_date'
@@ -29,7 +29,7 @@ export class AddCustomersComponent {
 
   title = 'Adicionar Clientes';
 
-  constructor (private http: HttpClient) {}
+  constructor (private api: ApiService) {}
 
   validate () {
     const inputsKey = Object.keys(this.formRecords);
@@ -52,7 +52,7 @@ export class AddCustomersComponent {
   }
 
   postCustomer () {
-    this.http.post(`http://localhost:8082/api/customer`, this.formRecords)
+    this.api.post(`/customer`, this.formRecords)
         .subscribe( (response: any) => {
             console.log(response)
             alert(`Cliente ${response.name} cadastrado com sucesso`)

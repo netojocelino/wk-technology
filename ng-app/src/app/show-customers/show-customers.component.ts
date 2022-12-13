@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 type CustomerType = {
     'id': string,
@@ -23,10 +23,10 @@ type CustomerType = {
 export class ShowCustomersComponent implements OnInit {
     customers: CustomerType[] = []
 
-    constructor(private http: HttpClient) {}
+    constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.http.get('http://localhost:8082/api/customers')
+        this.api.get('http://localhost:8082/api/customers')
             .subscribe((customers: any) => {
                 const customersCasted = customers.map((customer: CustomerType) => {
                     const birth_date = new Date(customer.birth_date)

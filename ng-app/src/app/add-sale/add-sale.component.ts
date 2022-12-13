@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 type CustomerType = {
     id: String
@@ -43,10 +43,10 @@ export class AddSaleComponent implements OnInit {
 
     products_id: number[] = []
 
-    constructor(private http: HttpClient) {}
+    constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.http.get('http://localhost:8082/api/customers')
+        this.api.get('http://localhost:8082/api/customers')
             .subscribe((customers: any) => {
                 this.customers = customers as CustomerType[];
             }, (error) => {
@@ -55,7 +55,7 @@ export class AddSaleComponent implements OnInit {
             })
 
 
-        this.http.get('http://localhost:8082/api/products')
+        this.api.get('http://localhost:8082/api/products')
             .subscribe((products: any) => {
                 const productCasted = products.map((product: any) => {
                     return {
@@ -144,7 +144,7 @@ export class AddSaleComponent implements OnInit {
 
 
     postSale (data: any) {
-        this.http.post(`http://localhost:8082/api/order/sale`, data)
+        this.api.post(`http://localhost:8082/api/order/sale`, data)
         .subscribe( (response: any) => {
             console.log(response)
             alert(`Venda cadastrado com sucesso`)

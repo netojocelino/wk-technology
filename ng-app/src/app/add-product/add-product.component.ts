@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 
 type FormInput = 'name' | 'unit_price';
@@ -17,7 +17,7 @@ export class AddProductComponent {
         'unit_price': '',
     }
 
-    constructor (private http: HttpClient) {}
+    constructor (private api: ApiService) {}
 
     validate () {
       const inputsKey = Object.keys(this.formRecords);
@@ -40,7 +40,7 @@ export class AddProductComponent {
     }
 
     postProduct () {
-        this.http.post(`http://localhost:8082/api/product`, this.formRecords)
+        this.api.post(`/product`, this.formRecords)
         .subscribe( (response: any) => {
             console.log(response)
             alert(`Produto ${response.name} cadastrado com sucesso`)

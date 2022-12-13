@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 
 type SaleType = {
@@ -39,10 +39,10 @@ export class ShowSalesComponent implements OnInit {
     title = 'Listar Vendas'
     sales: SaleType[] = []
 
-    constructor(private http: HttpClient) {}
+    constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.http.get('http://localhost:8082/api/order/sale')
+        this.api.get('http://localhost:8082/api/order/sale')
             .subscribe((sales: any) => {
                 const salesCasted = sales.map((sale: SaleInputType) => {
                     const items: any[] = sale.items?.map((item: any) => item.product.name)

@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ApiService } from '../api/api.service';
 
 type ProductType = {
     'id': string,
@@ -16,10 +16,10 @@ type ProductType = {
 export class ShowProductsComponent {
     products: ProductType[] = []
 
-    constructor(private http: HttpClient) {}
+    constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.http.get('http://localhost:8082/api/products')
+        this.api.get('http://localhost:8082/api/products')
             .subscribe((products: any) => {
                 const productsCasted = products.map((product: ProductType) => {
                     return product
