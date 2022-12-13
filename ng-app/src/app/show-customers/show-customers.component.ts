@@ -29,7 +29,6 @@ export class ShowCustomersComponent implements OnInit {
         this.http.get('http://localhost:8082/api/customers')
             .subscribe((customers: any) => {
                 const customersCasted = customers.map((customer: CustomerType) => {
-                    customer.cpf = customer.cpf.substring(0, 3) + '.xxx.xxx-xx';
                     const birth_date = new Date(customer.birth_date)
                     customer.birth_date = `${birth_date.getDate().toString().padStart(2, '0')}/`
                             +`${birth_date.getMonth().toString().padStart(2, '0')}/${birth_date.getFullYear()}`
