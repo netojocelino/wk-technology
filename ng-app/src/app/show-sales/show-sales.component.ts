@@ -42,7 +42,7 @@ export class ShowSalesComponent implements OnInit {
     constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.api.get('http://localhost:8082/api/order/sale')
+        this.api.get('/order/sale')
             .subscribe((sales: any) => {
                 const salesCasted = sales.map((sale: SaleInputType) => {
                     const items: any[] = sale.items?.map((item: any) => item.product.name)

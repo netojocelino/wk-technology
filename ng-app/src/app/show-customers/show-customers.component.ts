@@ -26,7 +26,7 @@ export class ShowCustomersComponent implements OnInit {
     constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.api.get('http://localhost:8082/api/customers')
+        this.api.get('/customers')
             .subscribe((customers: any) => {
                 const customersCasted = customers.map((customer: CustomerType) => {
                     const birth_date = new Date(customer.birth_date)

@@ -19,7 +19,7 @@ export class ShowProductsComponent {
     constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.api.get('http://localhost:8082/api/products')
+        this.api.get('/products')
             .subscribe((products: any) => {
                 const productsCasted = products.map((product: ProductType) => {
                     return product

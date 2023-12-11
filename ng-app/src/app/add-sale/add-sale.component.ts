@@ -46,7 +46,7 @@ export class AddSaleComponent implements OnInit {
     constructor(private api: ApiService) {}
 
     ngOnInit(): void {
-        this.api.get('http://localhost:8082/api/customers')
+        this.api.get('/customers')
             .subscribe((customers: any) => {
                 this.customers = customers as CustomerType[];
             }, (error) => {
@@ -55,7 +55,7 @@ export class AddSaleComponent implements OnInit {
             })
 
 
-        this.api.get('http://localhost:8082/api/products')
+        this.api.get('/products')
             .subscribe((products: any) => {
                 const productCasted = products.map((product: any) => {
                     return {
@@ -144,7 +144,7 @@ export class AddSaleComponent implements OnInit {
 
 
     postSale (data: any) {
-        this.api.post(`http://localhost:8082/api/order/sale`, data)
+        this.api.post(`/order/sale`, data)
         .subscribe( (response: any) => {
             console.log(response)
             alert(`Venda cadastrado com sucesso`)
